@@ -176,7 +176,7 @@ module CDK
       holder = CDK.char2Chtype(color, junk1, junk2)
 
       # Set the widget's background color
-      self.SetBackAttrObj(holder[0])
+      self.setBKattr(holder[0])
     end
 
     # Set the widget's title.
