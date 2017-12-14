@@ -25,7 +25,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-require 'ncurses'
+require 'ncursesw'
 require 'scanf'
 require_relative 'cdk/draw'
 require_relative 'cdk/display'
@@ -68,7 +68,7 @@ module CDK
   end
 
   VERSION_MAJOR = 0
-  VERSION_MINOR = 8
+  VERSION_MINOR = 9
   VERSION_PATCH = 0
   
   CDK_PATHMAX = 256
@@ -775,7 +775,7 @@ module CDK
   end
 
   def CDK.Version
-    return "%d.%d - %d" %
+    return "%d.%d.%d" %
         [CDK::VERSION_MAJOR, CDK::VERSION_MINOR, CDK::VERSION_PATCH]
   end
 
