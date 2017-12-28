@@ -23,12 +23,15 @@ module CDK
 
       # set default exit-types
       @exit_type = :NEVER_ACTIVATED
-      @early_exit = :NEVER_ACTIVATED
 
       @accepts_focus = false
 
       # Bound functions
       @binding_list = {}
+    end
+
+    def timeout(v)
+      @win.timeout(v) if @win
     end
 
     def object_type
@@ -255,6 +258,10 @@ module CDK
       when 0
         @exit_type = :EARLY_EXIT
       end
+    end
+
+    def resetExitType
+      @exit_type = :NEVER_ACTIVATED
     end
 
     def validCDKObject
