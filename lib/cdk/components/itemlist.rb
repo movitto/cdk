@@ -1,4 +1,4 @@
-require_relative 'cdk_objs'
+require_relative '../cdk_objs'
 
 module CDK
   class ITEMLIST < CDK::CDKOBJS

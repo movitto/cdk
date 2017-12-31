@@ -1,4 +1,4 @@
-require_relative 'cdk_objs'
+require_relative '../cdk_objs'
 
 module CDK
   class MENU < CDK::CDKOBJS
@@ -332,6 +332,14 @@ module CDK
       (0...@menu_items).each do |x|
         self.drawTitle(x)
         @title_win[x].wrefresh
+      end
+    end
+
+    def noutrefresh
+      # Draw in the menu titles.
+      (0...@menu_items).each do |x|
+        self.drawTitle(x)
+        @title_win[x].noutrefresh
       end
     end
 
