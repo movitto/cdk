@@ -64,7 +64,7 @@ module CDK
       # Rejustify the x and y positions if we need to.
       xtmp = [xplace]
       ytmp = [yplace]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, @box_width, @box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, @box_width, @box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -108,7 +108,7 @@ module CDK
       # Each choice has to be converted from string to chtype array
       (0...choice_count).each do |j|
         choicelen = []
-        @choice << CDK.char2Chtype(choices[j], choicelen, [])
+        @choice << char2Chtype(choices[j], choicelen, [])
         @choicelen << choicelen[0]
         @maxchoicelen = [@maxchoicelen, choicelen[0]].max
       end
@@ -412,7 +412,7 @@ module CDK
 
     def getItems(list)
       @item.each do |item|
-        list << CDK.chtype2Char(item)
+        list << chtype2Char(item)
       end
       return @list_size
     end
@@ -429,7 +429,7 @@ module CDK
     end
 
     def getTitle
-      return CDK.chtype2Char(@title)
+      return chtype2Char(@title)
     end
 
     # This sets the highlight bar.
@@ -558,7 +558,7 @@ module CDK
         (0...list_size).each do |j|
           lentmp = []
           postmp = []
-          new_list << CDK.char2Chtype(list[j], lentmp, postmp)
+          new_list << char2Chtype(list[j], lentmp, postmp)
           new_len << lentmp[0]
           new_pos << postmp[0]
           #if new_list[j].size == 0
@@ -567,7 +567,7 @@ module CDK
             break
           end
           new_pos[j] =
-              CDK.justifyString(box_width, new_len[j], new_pos[j]) + adjust
+              justify_string(box_width, new_len[j], new_pos[j]) + adjust
           widest_item = [widest_item, new_len[j]].max
         end
 

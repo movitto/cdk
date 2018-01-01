@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 require_relative 'example'
 
+include CDK::Converters
+
 class ScrollExample < CLIExample
   @@count = 0
   def ScrollExample.newLabel(prefix)
@@ -115,7 +117,7 @@ class ScrollExample < CLIExample
       msg << '<C>Press any key to continue.'
       cdkscreen.popupLabel(msg, 3)
     elsif scroll_list.exit_type == :NORMAL
-      the_item = CDK.chtype2Char(scroll_list.item[selection])
+      the_item = chtype2Char(scroll_list.item[selection])
       msg = ['<C>You selected the following file',
           "<C>%.*s" % [236, the_item],  # FIXME magic number
           "<C>Press any key to continue."

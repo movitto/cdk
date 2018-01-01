@@ -64,7 +64,7 @@ module CDK
       # Rejustify the x and y positions if we need to.
       xtmp = [xplace]
       ytmp = [yplace]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, @box_width, @box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, @box_width, @box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -399,7 +399,7 @@ module CDK
 
     def getItems(list)
       (0...@list_size).each do |j|
-        list << CDK.chtype2Char(@item[j])
+        list << chtype2Char(@item[j])
       end
       return @list_size
     end
@@ -484,14 +484,14 @@ module CDK
         (0...list_size).each do |j|
           lentmp = []
           postmp = []
-          new_list << CDK.char2Chtype(list[j], lentmp, postmp)
+          new_list << char2Chtype(list[j], lentmp, postmp)
           new_len << lentmp[0]
           new_pos << postmp[0]
           if new_list[j].nil? || new_list[j].size == 0
             status = false
             break
           end
-          new_pos[j] = CDK.justifyString(box_width, new_len[j], new_pos[j]) + 3
+          new_pos[j] = justify_string(box_width, new_len[j], new_pos[j]) + 3
           widest_item = [widest_item, new_len[j]].max
         end
         if status

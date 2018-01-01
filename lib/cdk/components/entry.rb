@@ -32,7 +32,7 @@ module CDK
       # Translate the label string to a chtype array
       if !(label.nil?) && label.size > 0
         label_len = [@label_len]
-        @label = CDK.char2Chtype(label, label_len, [])
+        @label = char2Chtype(label, label_len, [])
         @label_len = label_len[0]
         box_width += @label_len
       end
@@ -52,7 +52,7 @@ module CDK
       # Rejustify the x and y positions if we need to.
       xtmp = [xpos]
       ytmp = [ypos]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -82,7 +82,7 @@ module CDK
             xpos + horizontal_adjust + @border_size)
       end
 
-      # cleanChar (entry->info, max + 3, '\0');
+      #entry->info += '\0' * (max + 3)
       @info = ''
       @info_width = max + 3
 

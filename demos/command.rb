@@ -3,6 +3,8 @@ require 'ostruct'
 require 'optparse'
 require_relative '../lib/cdk'
 
+include CDK::Converters
+
 class Command
   MAXHISTORY = 5000
 
@@ -74,7 +76,7 @@ class Command
 
     # Convert the prompt to a chtype and determine its length
     prompt_len = []
-    convert = CDK.char2Chtype(prompt, prompt_len, [])
+    convert = char2Chtype(prompt, prompt_len, [])
     prompt_len = prompt_len[0]
     command_field_width = Ncurses.COLS - prompt_len - 4
 

@@ -170,9 +170,7 @@ module CDK
     def Draw.writeBlanks(window, xpos, ypos, align, start, endn)
       if start < endn
         want = (endn - start) + 1000
-        blanks = ''
-
-        CDK.cleanChar(blanks, want - 1, ' ')
+        blanks = ' ' * (want - 1)
         Draw.writeChar(window, xpos, ypos, blanks, align, start, endn)
       end
     end

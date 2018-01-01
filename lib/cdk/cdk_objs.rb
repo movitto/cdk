@@ -1,5 +1,13 @@
+require_relative './mixins/alignments'
+require_relative './mixins/justifications'
+require_relative './mixins/converters'
+
 module CDK
   class CDKOBJS
+    include Alignments
+    include Justifications
+    include Converters
+
     attr_accessor :screen_index, :screen, :has_focus, :is_visible, :box
     attr_accessor :ULChar, :URChar, :LLChar, :LRChar, :HZChar, :VTChar, :BXAttr
     attr_reader :binding_list, :accepts_focus, :exit_type, :border_size
@@ -80,7 +88,7 @@ module CDK
       # Adjust the window if we need to
       xtmp = [xpos]
       ytmp = [ypos]
-      CDK.alignxy(@screen.window, xtmp, ytmp, @box_width, @box_height)
+      alignxy(@screen.window, xtmp, ytmp, @box_width, @box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -176,7 +184,7 @@ module CDK
       junk2 = []
       
       # Convert the value of the environment variable to a chtype
-      holder = CDK.char2Chtype(color, junk1, junk2)
+      holder = char2Chtype(color, junk1, junk2)
 
       # Set the widget's background color
       self.setBKattr(holder[0])
@@ -193,7 +201,7 @@ module CDK
           temp.each do |line|
             len = []
             align = []
-            holder = CDK.char2Chtype(line, len, align)
+            holder = char2Chtype(line, len, align)
             max_width = [len[0], max_width].max
           end
           box_width = [box_width, max_width + 2 * @border_size].max
@@ -209,9 +217,9 @@ module CDK
         (0...@title_lines).each do |x|
           len_x = []
           pos_x = []
-          @title << CDK.char2Chtype(temp[x], len_x, pos_x)
+          @title << char2Chtype(temp[x], len_x, pos_x)
           @title_len.concat(len_x)
-          @title_pos << CDK.justifyString(title_width, len_x[0], pos_x[0])
+          @title_pos << justify_string(title_width, len_x[0], pos_x[0])
         end
       end
 

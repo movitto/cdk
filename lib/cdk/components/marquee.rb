@@ -42,7 +42,7 @@ module CDK
       padding = if mesg[-1] == ' ' then 0 else 1 end
 
       # Translate the string to a chtype array
-      message = CDK.char2Chtype(mesg, mesg_length, [])
+      message = char2Chtype(mesg, mesg_length, [])
 
       # Draw in the widget.
       self.draw(@box)
@@ -212,7 +212,7 @@ module CDK
       # Rejustify the x and y positions if we need to.
       xtmp = [xpos]
       ytmp = [ypos]
-      CDK.alignxy(@screen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(@screen.window, xtmp, ytmp, box_width, box_height)
       window = Ncurses::WINDOW.new(box_height, box_width, ytmp[0], xtmp[0])
 
       unless window.nil?

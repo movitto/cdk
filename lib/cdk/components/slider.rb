@@ -33,7 +33,7 @@ module CDK
       # Translate the label string to a chtype array.
       if !(label.nil?) && label.size > 0
         label_len = []
-        @label = CDK.char2Chtype(label, label_len, [])
+        @label = char2Chtype(label, label_len, [])
         @label_len = label_len[0]
         box_width = @label_len + field_width +
             high_value_len + 2 * @border_size
@@ -56,7 +56,7 @@ module CDK
       # Rejustify the x and y positions if we need to.
       xtmp = [xplace]
       ytmp = [yplace]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -190,7 +190,7 @@ module CDK
         return false
       end
       ch = @field_win.winch
-      if CDK.CharOf(ch) != ' '
+      if charOf(ch) != ' '
         return true
       end
       if new_position > 1
@@ -199,7 +199,7 @@ module CDK
           return false
         end
         ch = @field_win.winch
-        return CDK.CharOf(ch) != ' '
+        return charOf(ch) != ' '
       end
       return false
     end

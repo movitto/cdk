@@ -1,7 +1,10 @@
 require_relative '../cdk_objs'
+require_relative '../mixins/list_support'
 
 module CDK
   class FSELECT < CDK::CDKOBJS
+    include ListSupport
+
     attr_reader :scroll_field, :entry_field
     attr_reader :dir_attribute, :file_attribute, :link_attribute, :highlight
     attr_reader :sock_attribute, :field_attribute, :filler_character
@@ -31,7 +34,7 @@ module CDK
       # Rejustify the x and y positions if we need to.
       xtmp = [xplace]
       ytmp = [yplace]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -76,7 +79,7 @@ module CDK
 
       # Create the entry field in the selector
       label_len = []
-      CDK.char2Chtype(label, label_len, [])
+      char2Chtype(label, label_len, [])
       label_len = label_len[0]
 
       temp_width = if CDK::FSELECT.isFullWidth(width)
@@ -207,7 +210,7 @@ module CDK
         end
 
         # Look for a unique filename match.
-        index = CDK.searchList(list, fselect.file_counter, filename)
+        index = search_list(list, fselect.file_counter, filename)
 
         # If the index is less than zero, return we didn't find a match.
         if index < 0
@@ -285,7 +288,7 @@ module CDK
         buttons = ['No', 'Yes']
 
         # Get the filename which is to be deleted.
-        filename = CDK.chtype2Char(fscroll.item[fscroll.current_item])
+        filename = chtype2Char(fscroll.item[fscroll.current_item])
         filename = filename[0...-1]
 
         # Create the dialog message.
@@ -334,8 +337,8 @@ module CDK
           fselect.injectMyScroller(key)
 
           # Get the currently highlighted filename.
-          current = CDK.chtype2Char(scrollp.item[scrollp.current_item])
-          #current = CDK.chtype2String(scrollp.item[scrollp.current_item])
+          current = chtype2Char(scrollp.item[scrollp.current_item])
+          #current = chtype2String(scrollp.item[scrollp.current_item])
           current = current[0...-1]
 
           temp = CDK::FSELECT.make_pathname(fselect.pwd, current)
@@ -869,9 +872,9 @@ module CDK
     # Return the plain string that corresponds to an item in dir_contents
     def contentToPath(content)
       # XXX direct translation of original but might be redundant
-      temp_chtype = CDK.char2Chtype(content, [], [])
-      temp_char = CDK.chtype2Char(temp_chtype)
-      temp_char = temp_char[0..-1]
+      temp_chtype = char2Chtype(content, [], [])
+      temp_char   = chtype2Char(temp_chtype)
+      temp_char   = temp_char[0..-1]
 
       # Create the pathname.
       result = CDK::FSELECT.make_pathname(@pwd, temp_char)

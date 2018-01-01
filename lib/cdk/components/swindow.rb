@@ -45,7 +45,7 @@ module CDK
       # Rejustify the x and y positions if we need to.
       xtmp = [xplace]
       ytmp = [yplace]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -109,9 +109,9 @@ module CDK
     def setupLine(list, x)
       list_len = []
       list_pos = []
-      @list[x] = CDK.char2Chtype(list, list_len, list_pos)
+      @list[x] = char2Chtype(list, list_len, list_pos)
       @list_len[x] = list_len[0]
-      @list_pos[x] = CDK.justifyString(@box_width, list_len[0], list_pos[0])
+      @list_pos[x] = justify_string(@box_width, list_len[0], list_pos[0])
       @widest_line = [@widest_line, @list_len[x]].max
     end
 
@@ -713,7 +713,7 @@ module CDK
 
       # Start writing out the file.
       @list.each do |item|
-        raw_line = CDK.chtype2Char(item)
+        raw_line = chtype2Char(item)
         output_file << "%s\n" % raw_line
       end
 

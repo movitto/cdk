@@ -40,7 +40,7 @@ module CDK
       # Translate the buttons string to a chtype array
       (0...button_count).each do |x|
         button_len = []
-        @button << CDK.char2Chtype(buttons[x], button_len ,[]) 
+        @button << char2Chtype(buttons[x], button_len ,[])
         @button_len << button_len[0]
       end
 
@@ -69,7 +69,7 @@ module CDK
       # Now we have to readjust the x and y positions
       xtmp = [x_pos]
       ytmp = [y_pos]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 

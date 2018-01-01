@@ -2,6 +2,8 @@
 require 'ostruct'
 require_relative '../lib/cdk'
 
+include CDK::Converters
+
 class Rolodex
   MAXGROUPS = 100
   GTypeMap = {
@@ -897,7 +899,7 @@ class Rolodex
       # Ask the user if they really want to delete the listing.
       mesg = [
           '<C>Do you really want to delete the phone entry.',
-          '<C></B/16>%s' % [CDK.chtype2Char(scrollp.item[scrollp.current_item])]
+          '<C></B/16>%s' % [chtype2Char(scrollp.item[scrollp.current_item])]
       ]
       if scrollp.screen.popupDialog(mesg, mesg.size, buttons, buttons.size) == 1
         front = phone_data.record[0...position] || []
@@ -1167,7 +1169,7 @@ class Rolodex
       selection = (menu_list) * 100 + submenu_list
 
       # Create the help title.
-      name = CDK.chtype2Char(menu.sublist[menu_list][submenu_list])
+      name = chtype2Char(menu.sublist[menu_list][submenu_list])
       name.strip!
       mesg = [
           '<C></R>Help<!R> </U>%s<!U>' % [name],

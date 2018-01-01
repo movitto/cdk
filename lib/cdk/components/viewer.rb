@@ -35,7 +35,7 @@ module CDK
       # Rejustify the x and y positions if we need to.
       xtmp = [xplace]
       ytmp = [yplace]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -57,7 +57,7 @@ module CDK
       if button_count > 0
         (0...button_count).each do |x|
           button_len = []
-          @button << CDK.char2Chtype(buttons[x], button_len, [])
+          @button << char2Chtype(buttons[x], button_len, [])
           @button_len << button_len[0]
           button_width += @button_len[x] + 1
         end
@@ -137,9 +137,9 @@ module CDK
       if interpret
         list_len = []
         list_pos = []
-        @list[x] = CDK.char2Chtype(list, list_len, list_pos)
+        @list[x] = char2Chtype(list, list_len, list_pos)
         @list_len[x] = list_len[0]
-        @list_pos[x] = CDK.justifyString(@box_width, @list_len[x], list_pos[0])
+        @list_pos[x] = justify_string(@box_width, @list_len[x], list_pos[0])
       else
         # We must convert tabs and other nonprinting characters. The curses
         # library normally does this, but we are bypassing it by writing
@@ -152,8 +152,8 @@ module CDK
               t  << ' '
               len += 1
             end while (len & 7) != 0
-          elsif CDK.CharOf(list[y].ord).match(/^[[:print:]]$/)
-            t << CDK.CharOf(list[y].ord)
+          elsif charOf(list[y].ord).match(/^[[:print:]]$/)
+            t << charOf(list[y].ord)
             len += 1
           else
             t << Ncurses.unctrl(list[y].ord)
@@ -187,7 +187,7 @@ module CDK
       if list.size > 0 && interpret
         (0...list_size).each do |x|
           filename = ''
-          if CDK.checkForLink(list[x], filename) == 1
+          if check_for_link(list[x], filename) == 1
             file_contents = []
             file_len = CDK.readFile(filename, file_contents)
 
@@ -218,7 +218,7 @@ module CDK
         else
           # Check if we have a file link in this line.
           filename = []
-          if CDK.checkForLink(list[x], filename) == 1
+          if check_for_link(list[x], filename) == 1
             # We have a link, open the file.
             file_contents = []
             file_len = 0
@@ -555,10 +555,10 @@ module CDK
             pos = 0
             y = 0
             while y < @list[x].size
-              plain_char = CDK.CharOf(@list[x][y])
+              plain_char = charOf(@list[x][y])
 
               pos += 1
-              if @CDK.CharOf(pattern[pos-1]) != plain_char
+              if charOf(pattern[pos-1]) != plain_char
                 y -= (pos - 1)
                 pos = 0
               elsif pos == pattern.size
@@ -578,10 +578,10 @@ module CDK
             y = 0
             pos = 0
             while y < @list[x].size
-              plain_char = CDK.CharOf(@list[x][y])
+              plain_char = charOf(@list[x][y])
 
               pos += 1
-              if CDK.CharOf(pattern[pos-1]) != plain_char
+              if charOf(pattern[pos-1]) != plain_char
                 y -= (pos - 1)
                 pos = 0
               elsif pos == pattern.size
@@ -596,7 +596,7 @@ module CDK
       end
       return found
     end
-    
+
     # This allows us to 'jump' to a given line in the file.
     def jumpToLine
       newline = CDK::SCALE.new(@screen, CDK::CENTER, CDK::CENTER,
@@ -660,7 +660,7 @@ module CDK
       # Highlight the current button.
       (0...@button_len[@current_button]).each do |x|
         # Strip the character of any extra attributes.
-        character = CDK.CharOf(@button[@current_button][x])
+        character = charOf(@button[@current_button][x])
 
         # Add the character into the window.
         @win.mvwaddch(@box_height - 2, @button_pos[@current_button] + x,
@@ -807,6 +807,76 @@ module CDK
 
     def object_type
       :VIEWER
+    end
+
+    private
+
+    # This function checks to see if a link has been requested
+    def check_for_link (line, filename)
+      f_pos = 0
+      x = 3
+      if line.nil?
+        return -1
+      end
+
+      # Strip out the filename.
+      if line[0] == L_MARKER && line[1] == 'F' && line[2] == '='
+        while x < line.size
+          if line[x] == R_MARKER
+            break
+          end
+          if f_pos < CDK_PATHMAX
+            filename << line[x]
+            f_pos += 1
+          end
+          x += 1
+        end
+      end
+      return f_pos != 0
+    end
+
+    # This allows the user to view information.
+    def self.viewInfo(screen, title, info, count, buttons, button_count,
+        interpret)
+      selected = -1
+
+      # Create the file viewer to view the file selected.
+      viewer = CDK::VIEWER.new(screen, CDK::CENTER, CDK::CENTER, -6, -16,
+          buttons, button_count, Ncurses::A_REVERSE, true, true)
+
+      # Set up the viewer title, and the contents to the widget.
+      viewer.set(title, info, count, Ncurses::A_REVERSE, interpret, true, true)
+
+      # Activate the viewer widget.
+      selected = viewer.activate([])
+
+      # Make sure they exited normally.
+      if viewer.exit_type != :NORMAL
+        viewer.destroy
+        return -1
+      end
+
+      # Clean up and return the button index selected
+      viewer.destroy
+      return selected
+    end
+
+    # This allows the user to view a file.
+    def self.viewFile(screen, title, filename, buttons, button_count)
+      info = []
+      result = 0
+
+      # Open the file and read the contents.
+      lines = CDK.readFile(filename, info)
+
+      # If we couldn't read the file, return an error.
+      if lines == -1
+        result = lines
+      else
+        result = self.viewInfo(screen, title, info, lines, buttons,
+            button_count, true)
+      end
+      return result
     end
   end
 end

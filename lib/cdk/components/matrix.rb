@@ -82,7 +82,7 @@ module CDK
         end
         rowtitle_len = []
         rowtitle_pos = []
-        @rowtitle[x] = CDK.char2Chtype((rowtitles[x] || ''),
+        @rowtitle[x] = char2Chtype((rowtitles[x] || ''),
             rowtitle_len, rowtitle_pos)
         @rowtitle_len[x] = rowtitle_len[0]
         @rowtitle_pos[x] = rowtitle_pos[0]
@@ -94,7 +94,7 @@ module CDK
 
         # We need to rejustify the row title cell info.
         (1..rows).each do |x|
-          @rowtitle_pos[x] = CDK.justifyString(@maxrt,
+          @rowtitle_pos[x] = justify_string(@maxrt,
               @rowtitle_len[x], @rowtitle_pos[x])
         end
       else
@@ -118,7 +118,7 @@ module CDK
       # Rejustify the x and y positions if we need to.
       xtmp = [xplace]
       ytmp = [yplace]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -146,10 +146,10 @@ module CDK
         end
         coltitle_len = []
         coltitle_pos = []
-        @coltitle[x] = CDK.char2Chtype(coltitles[x] || '',
+        @coltitle[x] = char2Chtype(coltitles[x] || '',
             coltitle_len, coltitle_pos)
         @coltitle_len[x] = coltitle_len[0]
-        @coltitle_pos[x] = @border_size + CDK.justifyString(
+        @coltitle_pos[x] = @border_size + justify_string(
             colwidths[x], @coltitle_len[x], coltitle_pos[0])
         @colwidths[x] = colwidths[x]
       end
@@ -635,7 +635,7 @@ module CDK
       # If the column is only one char.
       (1..@colwidths[@ccol]).each do |x|
         ch = if x <= infolen && !Display.isHiddenDisplayType(disptype)
-             then CDK.CharOf(@info[@row][@col][x - 1])
+             then charOf(@info[@row][@col][x - 1])
              else @filler
              end
         self.CurMatrixCell.mvwaddch(1, x, ch.ord | highlight)
@@ -678,7 +678,7 @@ module CDK
       # Draw in the cell info.
       (1..@colwidths[col]).each do |x|
         ch = if x <= infolen && !Display.isHiddenDisplayType(disptype)
-             then CDK.CharOf(@info[vrow][vcol][x-1]).ord | highlight
+             then charOf(@info[vrow][vcol][x-1]).ord | highlight
              else @filler
              end
         @cell[row][col].mvwaddch(1, x, ch.ord | highlight)

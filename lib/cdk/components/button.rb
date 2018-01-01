@@ -16,13 +16,13 @@ module CDK
       # Translate the string to a chtype array.
       info_len = []
       info_pos = []
-      @info = CDK.char2Chtype(text, info_len, info_pos)
+      @info = char2Chtype(text, info_len, info_pos)
       @info_len = info_len[0]
       @info_pos = info_pos[0]
       box_width = [box_width, @info_len].max + 2 * @border_size
 
       # Create the string alignments.
-      @info_pos = CDK.justifyString(box_width - 2 * @border_size,
+      @info_pos = justify_string(box_width - 2 * @border_size,
           @info_len, @info_pos)
 
       # Make sure we didn't extend beyond the dimensions of the window.
@@ -38,7 +38,7 @@ module CDK
       # Rejustify the x and y positions if we need to.
       xtmp = [xpos]
       ytmp = [ypos]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -114,9 +114,9 @@ module CDK
     def setMessage(info)
       info_len = []
       info_pos = []
-      @info = CDK.char2Chtype(info, info_len, info_pos)
+      @info = char2Chtype(info, info_len, info_pos)
       @info_len = info_len[0]
-      @info_pos = CDK.justifyString(@box_width - 2 * @border_size,
+      @info_pos = justify_string(@box_width - 2 * @border_size,
           info_pos[0])
 
       # Redraw the button widget.

@@ -1,7 +1,10 @@
 require_relative '../cdk_objs'
+require_relative '../mixins/list_support'
 
 module CDK
   class ALPHALIST < CDK::CDKOBJS
+    include ListSupport
+
     attr_reader :scroll_field, :entry_field, :list
 
     def initialize(cdkscreen, xplace, yplace, height, width, title, label,
@@ -35,14 +38,14 @@ module CDK
       # Translate the label string to a chtype array
       if label.size > 0
         lentmp = []
-        chtype_label = CDK.char2Chtype(label, lentmp, [])
+        chtype_label = char2Chtype(label, lentmp, [])
         label_len = lentmp[0]
       end
 
       # Rejustify the x and y positions if we need to.
       xtmp = [xplace]
       ytmp = [yplace]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -96,7 +99,7 @@ module CDK
           alphalist.injectMyScroller(key)
 
           # Set the value in the entry field.
-          current = CDK.chtype2Char(scrollp.item[scrollp.current_item])
+          current = chtype2Char(scrollp.item[scrollp.current_item])
           entry.setValue(current)
           entry.draw(entry.box)
           return true
@@ -118,7 +121,7 @@ module CDK
         end
         
         # Look for a unique word match.
-        index = CDK.searchList(alphalist.list, alphalist.list.size, entry.info)
+        index = search_list(alphalist.list, alphalist.list.size, entry.info)
 
         # if the index is less than zero, return we didn't find a match
         if index < 0
@@ -227,7 +230,7 @@ module CDK
 
           if pattern.size == 0
             empty = true
-          elsif (index = CDK.searchList(alphalist.list,
+          elsif (index = search_list(alphalist.list,
               alphalist.list.size, pattern)) >= 0
             # XXX: original uses n scroll downs/ups for <10 positions change
               scrollp.setPosition(index)

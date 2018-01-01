@@ -20,7 +20,7 @@ module CDK
       # Rejustify the x and y positions if we need to
       xtmp = [xplace]
       ytmp = [yplace]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -47,32 +47,31 @@ module CDK
       if !(xtitle.nil?) && xtitle.size > 0
         xtitle_len = []
         xtitle_pos = []
-        @xtitle = CDK.char2Chtype(xtitle, xtitle_len, xtitle_pos)
+        @xtitle = char2Chtype(xtitle, xtitle_len, xtitle_pos)
         @xtitle_len = xtitle_len[0]
-        @xtitle_pos = CDK.justifyString(@box_height,
-            @xtitle_len, xtitle_pos[0])
+        @xtitle_pos = justify_string(@box_height, @xtitle_len, xtitle_pos[0])
+
       else
         xtitle_len = []
         xtitle_pos = []
-        @xtitle = CDK.char2Chtype("<C></5>X Axis", xtitle_len, xtitle_pos)
+        @xtitle = char2Chtype("<C></5>X Axis", xtitle_len, xtitle_pos)
         @xtitle_len = title_len[0]
-        @xtitle_pos = CDK.justifyString(@box_height,
-            @xtitle_len, xtitle_pos[0])
+        @xtitle_pos = justify_string(@box_height, @xtitle_len, xtitle_pos[0])
       end
 
       # Translate the Y Axis title string to a chtype array
       if !(ytitle.nil?) && ytitle.size > 0
         ytitle_len = []
         ytitle_pos = []
-        @ytitle = CDK.char2Chtype(ytitle, ytitle_len, ytitle_pos)
+        @ytitle = char2Chtype(ytitle, ytitle_len, ytitle_pos)
         @ytitle_len = ytitle_len[0]
-        @ytitle_pos = CDK.justifyString(@box_width, @ytitle_len, ytitle_pos[0])
+        @ytitle_pos = justify_string(@box_width, @ytitle_len, ytitle_pos[0])
       else
         ytitle_len = []
         ytitle_pos = []
-        @ytitle = CDK.char2Chtype("<C></5>Y Axis", ytitle_len, ytitle_pos)
+        @ytitle = char2Chtype("<C></5>Y Axis", ytitle_len, ytitle_pos)
         @ytitle_len = ytitle_len[0]
-        @ytitle_pos = CDK.justifyString(@box_width, @ytitle_len, ytitle_pos[0])
+        @ytitle_pos = justify_string(@box_width, @ytitle_len, ytitle_pos[0])
       end
 
       @graph_char = 0
@@ -180,7 +179,7 @@ module CDK
     # Set the characters of the graph widget.
     def setCharacters(characters)
       char_count = []
-      new_tokens = CDK.char2Chtype(characters, char_count, [])
+      new_tokens = char2Chtype(characters, char_count, [])
 
       if char_count[0] != @count
         return false
@@ -203,7 +202,7 @@ module CDK
 
       # Convert the string given to us
       char_count = []
-      new_tokens = CDK.char2Chtype(character, char_count, [])
+      new_tokens = char2Chtype(character, char_count, [])
 
       # Check if the number of characters back is the same as the number
       # of elements in the list.

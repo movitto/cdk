@@ -1,33 +1,5 @@
 module CDK
   module Display
-    # Given a string, returns the equivalent display type
-    def Display.char2DisplayType(string)
-      table = {
-        "CHAR"     => :CHAR,
-        "HCHAR"    => :HCHAR,
-        "INT"      => :INT,
-        "HINT"     => :HINT,
-        "UCHAR"    => :UCHAR,
-        "LCHAR"    => :LCHAR,
-        "UHCHAR"   => :UHCHAR,
-        "LHCHAR"   => :LHCHAR,
-        "MIXED"    => :MIXED,
-        "HMIXED"   => :HMIXED,
-        "UMIXED"   => :UMIXED,
-        "LMIXED"   => :LMIXED,
-        "UHMIXED"  => :UHMIXED,
-        "LHMIXED"  => :LHMIXED,
-        "VIEWONLY" => :VIEWONLY,
-        0          => :INVALID 
-      }
- 
-      if table.include?(string)
-        table[string]
-      else
-        :INVALID
-      end
-    end
-
     # Tell if a display type is "hidden"
     def Display.isHiddenDisplayType(type)
       case type

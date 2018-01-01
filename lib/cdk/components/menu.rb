@@ -69,7 +69,7 @@ module CDK
         (CDK::MENU::TITLELINES...subsize[x]).to_a.each do |y|
           y0 = y - CDK::MENU::TITLELINES
           sublist_len = []
-          @sublist[x1][y0] = CDK.char2Chtype(menu_list[x][y],
+          @sublist[x1][y0] = char2Chtype(menu_list[x][y],
               sublist_len, [])
           @sublist_len[x1][y0] = sublist_len[0]
           max = [max, sublist_len[0]].max
@@ -82,7 +82,7 @@ module CDK
         end
 
         title_len = []
-        @title[x1] = CDK.char2Chtype(menu_list[x][0], title_len, [])
+        @title[x1] = char2Chtype(menu_list[x][0], title_len, [])
         @title_len[x1] = title_len[0]
         @subsize[x1] = subsize[x] - CDK::MENU::TITLELINES
         @title_win[x1] = cdkscreen.window.subwin(CDK::MENU::TITLELINES,

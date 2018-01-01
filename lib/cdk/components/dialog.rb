@@ -35,7 +35,7 @@ module CDK
       (0...rows).each do |x|
         info_len = []
         info_pos = []
-        @info << CDK.char2Chtype(mesg[x], info_len, info_pos)
+        @info << char2Chtype(mesg[x], info_len, info_pos)
         @info_len << info_len[0]
         @info_pos << info_pos[0]
         max_message_width = [max_message_width, info_len[0]].max
@@ -44,7 +44,7 @@ module CDK
       # Translate the button label string to a chtype array
       (0...button_count).each do |x|
         button_len = []
-        @button_label << CDK.char2Chtype(button_label[x], button_len, [])
+        @button_label << char2Chtype(button_label[x], button_len, [])
         @button_len << button_len[0]
         button_width += button_len[0] + 1
       end
@@ -58,7 +58,7 @@ module CDK
       # Now we have to readjust the x and y positions.
       xtmp = [xpos]
       ytmp = [ypos]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -94,7 +94,7 @@ module CDK
 
       # Create the string alignments.
       (0...rows).each do |x|
-        @info_pos[x] = CDK.justifyString(box_width - 2 * @border_size,
+        @info_pos[x] = justify_string(box_width - 2 * @border_size,
             @info_len[x], @info_pos[x])
       end
 

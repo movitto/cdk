@@ -25,7 +25,7 @@ module CDK
       # Translate the label string to a chtype array
       if !(label.nil?) && label.size > 0
         label_len = []
-        @label = CDK.char2Chtype(label, label_len, [])
+        @label = char2Chtype(label, label_len, [])
         @label_len = label_len[0]
       end
 
@@ -43,7 +43,7 @@ module CDK
       # Rejustify the x and y positions if we need to.
       xtmp = [xplace]
       ytmp = [yplace]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
@@ -402,7 +402,7 @@ module CDK
           # Copy the item to the list.
           lentmp = []
           postmp = []
-          new_items << CDK.char2Chtype(item[x], lentmp, postmp)
+          new_items << char2Chtype(item[x], lentmp, postmp)
           new_len << lentmp[0]
           new_pos << postmp[0]
           if new_items[0] == 0
@@ -414,7 +414,7 @@ module CDK
 
         # Now we need to justify the strings.
         (0...count).each do |x|
-          new_pos[x] = CDK.justifyString(field_width + 1,
+          new_pos[x] = justify_string(field_width + 1,
               new_len[x], new_pos[x])
         end
 

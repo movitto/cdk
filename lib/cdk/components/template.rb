@@ -26,17 +26,17 @@ module CDK
 
       # Translate the label string to achtype array
       if !(label.nil?) && label.size > 0
-        label_len = []
-        @label = CDK.char2Chtype(label, label_len, [])
+        label_len  = []
+        @label     = char2Chtype(label, label_len, [])
         @label_len = label_len[0]
       end
 
       # Translate the char * overlay to a chtype array
       if !(overlay.nil?) && overlay.size > 0
-        overlay_len = []
-        @overlay = CDK.char2Chtype(overlay, overlay_len, [])
+        overlay_len  = []
+        @overlay     = char2Chtype(overlay, overlay_len, [])
         @overlay_len = overlay_len[0]
-        @field_attr = @overlay[0] & Ncurses::A_ATTRIBUTES
+        @field_attr  = @overlay[0] & Ncurses::A_ATTRIBUTES
       else
         @overlay = []
         @overlay_len = 0
@@ -61,7 +61,7 @@ module CDK
       # Rejustify the x and y positions if we need to.
       xtmp = [xplace]
       ytmp = [yplace]
-      CDK.alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
+      alignxy(cdkscreen.window, xtmp, ytmp, box_width, box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 

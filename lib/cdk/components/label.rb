@@ -30,7 +30,7 @@ module CDK
         #Translate the string to a chtype array
         info_len = []
         info_pos = []
-        @info << CDK.char2Chtype(mesg[x], info_len, info_pos)
+        @info << char2Chtype(mesg[x], info_len, info_pos)
         @info_len << info_len[0]
         @info_pos << info_pos[0]
         box_width = [box_width, @info_len[x]].max
@@ -39,7 +39,7 @@ module CDK
 
       # Create the string alignments.
       (0...rows).each do |x|
-        @info_pos[x] = CDK.justifyString(box_width - 2 * @border_size,
+        @info_pos[x] = justify_string(box_width - 2 * @border_size,
             @info_len[x], @info_pos[x])
       end
 
@@ -54,7 +54,7 @@ module CDK
                    end
 
       # Rejustify the x and y positions if we need to
-      CDK.alignxy(cdkscreen.window, xpos, ypos, box_width, box_height)
+      alignxy(cdkscreen.window, xpos, ypos, box_width, box_height)
       @screen = cdkscreen
       @parent = cdkscreen.window
       @win = Ncurses::WINDOW.new(box_height, box_width, ypos[0], xpos[0])
@@ -114,9 +114,9 @@ module CDK
       (0...@rows).each do |x|
         info_len = []
         info_pos = []
-        @info[x] = CDK.char2Chtype(info[x], info_len, info_pos)
+        @info[x] = char2Chtype(info[x], info_len, info_pos)
         @info_len[x] = info_len[0]
-        @info_pos[x] = CDK.justifyString(@box_width - 2 * @border_size,
+        @info_pos[x] = justify_string(@box_width - 2 * @border_size,
             @info_len[x], info_pos[0])
       end
 

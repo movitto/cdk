@@ -94,7 +94,7 @@ class Viewer2Example < CLIExample
     # Set up the viewer title and the contents to the widget.
     v_title = '<C></B/21>Filename:<!21></22>%20s<!22!B>' % [params.filename]
 
-    selected = CDK.viewFile(cdkscreen, v_title, params.filename, button, 2)
+    selected = CDK::VIEWER.viewFile(cdkscreen, v_title, params.filename, button, 2)
 
     # Destroy the file selector widget (do not need filename anymore)
     unless f_select.nil?
