@@ -298,7 +298,7 @@ module CDK
       if cur_row >= 0 && cur_col >= 0
         @win.wmove(cur_row, cur_col)
       end
-      @win.wrefresh
+      wrefresh
     end
 
     # This erases the buttonbox box from the screen.

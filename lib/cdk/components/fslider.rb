@@ -32,7 +32,7 @@ module CDK
           Ncurses::A_NORMAL, CDK::HORIZONTAL, 0, temp.size)
 
       self.moveToEditPosition(@field_edit)
-      @field_win.wrefresh
+      wrefresh(@field_win)
     end
 
     def formattedSize(value)

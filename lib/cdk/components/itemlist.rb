@@ -244,7 +244,7 @@ module CDK
         Draw.drawObjBox(@win, self)
       end
 
-      @win.wrefresh
+      wrefresh
 
       # Draw in the field.
       self.drawField(false)
@@ -282,7 +282,7 @@ module CDK
       end
 
       # Redraw the field window.
-      @field_win.wrefresh
+      wrefresh(@field_win)
     end
 
     # This function removes the widget from the screen.

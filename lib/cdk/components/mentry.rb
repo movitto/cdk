@@ -137,7 +137,7 @@ module CDK
               mentry.drawField
             end
             mentry.field_win.wmove(mentry.current_row, mentry.current_col)
-            mentry.field_win.wrefresh
+            wrefresh(mentry.field_win)
           end
         end
       end
@@ -405,7 +405,7 @@ module CDK
             self.drawField
           elsif moved
             @field_win.wmove(@current_row, @current_col)
-            @field_win.wrefresh
+            wrefresh(@field_win)
           end
         end
 
@@ -435,7 +435,7 @@ module CDK
       currchar = @field_width * @top_row
   
       self.drawTitle(@win)
-      @win.wrefresh
+      wrefresh
   
       lastpos = @info.size
   
@@ -457,7 +457,7 @@ module CDK
   
       # Refresh the screen.
       @field_win.wmove(@current_row, @current_col)
-      @field_win.wrefresh
+      wrefresh(@field_win)
     end
   
     # This function draws the multiple line entry field.
@@ -465,7 +465,7 @@ module CDK
       # Box the widget if asked.
       if box
         Draw.drawObjBox(@win, self)
-        @win.wrefresh
+        wrefresh
       end
   
       # Do we need to draw in the shadow?
@@ -477,7 +477,7 @@ module CDK
       unless @label_win.nil?
         Draw.writeChtype(@label_win, 0, 0, @label, CDK::HORIZONTAL,
             0, @label_len)
-        @label_win.wrefresh
+        wrefresh(@label_win)
       end
   
       # Draw the mentry field
@@ -596,11 +596,11 @@ module CDK
   
     def focus
       @field_win.wmove(0, @current_col)
-      @field_win.wrefresh
+      wrefresh(@field_win)
     end
   
     def unfocus
-      @field_win.wrefresh
+      wrefresh(@field_win)
     end
 
     def position

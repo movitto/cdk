@@ -325,7 +325,7 @@ module CDK
 
       # If the count is zero then there aren't any points.
       if @count == 0
-        @win.wrefresh
+        wrefresh(@win)
         return
       end
 
@@ -359,7 +359,7 @@ module CDK
       @win.mvwaddch(@box_height - 3, @box_width, Ncurses::ACS_URCORNER)
 
       # Refresh and lets see it
-      @win.wrefresh
+      wrefresh
     end
 
     def destroy

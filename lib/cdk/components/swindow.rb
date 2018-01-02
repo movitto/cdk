@@ -456,7 +456,7 @@ module CDK
 
       self.drawTitle(@win)
 
-      @win.wrefresh
+      wrefresh
 
       # Draw in the list.
       self.drawList(box)
@@ -490,7 +490,7 @@ module CDK
         end
       end
 
-      @field_win.wrefresh
+      wrefresh(@field_win)
     end
 
     # This sets the background attribute of the widget.

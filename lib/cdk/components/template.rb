@@ -399,7 +399,7 @@ module CDK
 
       self.drawTitle(@win)
 
-      @win.wrefresh
+      wrefresh
 
       self.drawField
     end
@@ -412,7 +412,7 @@ module CDK
       unless @label_win.nil?
         Draw.writeChtype(@label_win, 0, 0, @label, CDK::HORIZONTAL,
             0, @label_len)
-        @label_win.wrefresh
+        wrefresh(@label_win)
       end
 
       # Draw in the template
@@ -435,7 +435,7 @@ module CDK
       else
         self.adjustCursor(1)
       end
-      @field_win.wrefresh
+      wrefresh(@field_win)
     end
 
     # Adjust the cursor for the template
@@ -446,7 +446,7 @@ module CDK
         @screen_pos += direction
       end
       @field_win.wmove(0, @screen_pos)
-      @field_win.wrefresh
+      wrefresh(@field_win)
     end
 
     # Set the background attribute of the widget.

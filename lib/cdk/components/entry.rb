@@ -376,7 +376,7 @@ module CDK
       @left_char = 0
 
       # Refresh the entry field.
-      @field_win.wrefresh
+      wrefresh(@field_win)
     end
 
     # This draws the entry field.
@@ -393,13 +393,13 @@ module CDK
 
       self.drawTitle(@win)
 
-      @win.wrefresh
+      wrefresh
 
       # Draw in the label to the widget.
       unless @label_win.nil?
         Draw.writeChtype(@label_win, 0, 0, @label, CDK::HORIZONTAL, 0,
             @label_len)
-        @label_win.wrefresh
+        wrefresh(@label_win)
       end
 
       self.drawField
@@ -424,7 +424,7 @@ module CDK
         @field_win.wmove(0, @screen_col)
       end
 
-      @field_win.wrefresh
+      wrefresh(@field_win)
     end
 
     # This erases an entry widget from the screen.
@@ -537,12 +537,12 @@ module CDK
 
     def focus
       @field_win.wmove(0, @screen_col)
-      @field_win.wrefresh
+      wrefresh(@field_win)
     end
 
     def unfocus
       self.draw(box)
-      @field_win.wrefresh
+      wrefresh(@field_win)
     end
 
     def position

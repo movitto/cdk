@@ -119,7 +119,7 @@ module CDK
       Draw.writeChtypeAttrib(@win, @button_pos[@current_button],
           @box_height - 1 - @border_size, @button_label[@current_button],
           @highlight, CDK::HORIZONTAL, 0, @button_len[@current_button])
-      @win.wrefresh
+      wrefresh(@win)
 
       if actions.nil? || actions.size == 0
         while true
@@ -208,7 +208,7 @@ module CDK
 
       unless complete
         self.drawButtons
-        @win.wrefresh
+        wrefresh(@win)
         self.setExitType(0)
       end
 
@@ -243,7 +243,7 @@ module CDK
       # Draw in the buttons.
       self.drawButtons
 
-      @win.wrefresh
+      wrefresh(@win)
     end
 
     # This function destroys the dialog widget.

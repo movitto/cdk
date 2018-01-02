@@ -166,7 +166,7 @@ module CDK
         Draw.drawObjBox(@win, self)
       end
       self.drawText
-      @win.wrefresh
+      wrefresh
     end
 
     # This erases the button widget.
@@ -355,12 +355,12 @@ module CDK
 
     def focus
       self.drawText
-      @win.wrefresh
+      wrefresh
     end
 
     def unfocus
       self.drawText
-      @win.wrefresh
+      wrefresh
     end
 
     def object_type

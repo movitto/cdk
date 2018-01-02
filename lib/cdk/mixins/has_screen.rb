@@ -15,5 +15,9 @@ module CDK
     def SCREEN_YPOS(n)
       n + @border_size + @title_lines
     end
+
+    def wrefresh(win=@win)
+      SCREEN.wrefresh(win)
+    end
   end # module HasScreen
 end # module CDK

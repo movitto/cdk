@@ -67,7 +67,7 @@ module CDK
           @win.mvwaddch(@border_size, x, ch)
           y += 1
         end
-        @win.wrefresh
+        wrefresh
 
         # Set my variables
         if mesg_length[0] < view_limit
@@ -112,7 +112,7 @@ module CDK
 
           # Time to start over.
           @win.mvwaddch(@border_size, @border_size, ' '.ord)
-          @win.wrefresh
+          wrefresh
           first_time = true
         end
 
@@ -152,7 +152,7 @@ module CDK
       end
 
       # Refresh the window.
-      @win.wrefresh
+      wrefresh
     end
 
     # This destroys the widget.
@@ -233,7 +233,7 @@ module CDK
     def self.discardWin(winp)
       unless winp.nil?
         winp.werase
-        winp.wrefresh
+        SCREEN.wrefresh(winp)
         winp.delwin
       end
     end

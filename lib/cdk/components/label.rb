@@ -163,7 +163,7 @@ module CDK
       end
 
       # Refresh the window
-      @win.wrefresh
+      wrefresh
     end
 
     # This erases the label widget

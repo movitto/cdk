@@ -309,7 +309,7 @@ module CDK
             @day_name[src..-1], CDK::HORIZONTAL, 0, col_len)
       end
 
-      @win.wrefresh
+      wrefresh
       self.drawField
     end
 
@@ -349,7 +349,7 @@ module CDK
           day += 1
         end
       end
-      @field_win.wrefresh
+      wrefresh(@field_win)
 
       # Draw the month in.
       if !(@label_win.nil?)
@@ -364,10 +364,10 @@ module CDK
             CDK::HORIZONTAL, 0, year_len)
 
         @label_win.wmove(0, 0)
-        @label_win.wrefresh
+        wrefresh(@label_win)
       elsif save_y >= 0
         @input_window.wmove(save_y, save_x)
-        @input_window.wrefresh
+        wrefresh(@input_window)
       end
     end
 

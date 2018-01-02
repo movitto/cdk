@@ -4,7 +4,7 @@ module CDK
     return if window.nil?
 
     window.werase
-    window.wrefresh
+    SCREEN.wrefresh(window)
   end
 
   # This safely deletes a given window.

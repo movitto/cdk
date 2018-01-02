@@ -244,7 +244,7 @@ module CDK
               then matrix.filler
               else plainchar
               end)
-          matrix.CurMatrixCell.wrefresh
+          wrefresh(matrix.CurMatrixCell)
 
           # Update the info string
           matrix.info[matrix.row][matrix.col] =
@@ -357,7 +357,7 @@ module CDK
               self.CurMatrixCell.mvwdelch(1, charcount + 1)
               self.CurMatrixCell.mvwinsch(1, charcount + 1, @filler)
 
-              self.CurMatrixCell.wrefresh
+              wrefresh(self.CurMatrixCell)
               @info[@row][@col] = @info[@row][@col][0...charcount]
             end
           when Ncurses::KEY_RIGHT, CDK::KEY_TAB
@@ -540,7 +540,7 @@ module CDK
             else
               self.drawOldCell
             end
-            self.CurMatrixCell.wrefresh
+            wrefresh(self.CurMatrixCell)
             self.setExitType(input)
             ret = 1
             complete = true
@@ -554,7 +554,7 @@ module CDK
             else
               self.drawOldCell
             end
-            self.CurMatrixCell.wrefresh
+            wrefresh(self.CurMatrixCell)
             self.setExitType(input)
             complete = true
           when CDK::REFRESH
@@ -575,7 +575,7 @@ module CDK
             else
               self.drawOldCell
             end
-            @cell[@oldcrow][@oldccol].wrefresh
+            wrefresh(@cell[@oldcrow][@oldccol])
 
             self.focusCurrent
           end
@@ -593,7 +593,7 @@ module CDK
             else
               self.CurMatrixCell.wmove(1, self.CurMatrixInfo.size + 1)
             end
-            self.CurMatrixCell.wrefresh
+            wrefresh(self.CurMatrixCell)
           end
 
           # Should we call a post-process?
@@ -641,7 +641,7 @@ module CDK
         self.CurMatrixCell.mvwaddch(1, x, ch.ord | highlight)
       end
       self.CurMatrixCell.wmove(1, infolen + 1)
-      self.CurMatrixCell.wrefresh
+      wrefresh(self.CurMatrixCell)
     end
 
     # This moves the matrix field to the given location.
@@ -685,7 +685,7 @@ module CDK
       end
 
       @cell[row][col].wmove(1, infolen + 1)
-      @cell[row][col].wrefresh
+      wrefresh(@cell[row][col])
 
       # Only draw the box iff the user asked for a box.
       if !box
@@ -804,7 +804,7 @@ module CDK
               @coltitle_pos[@lcol + x - 1], 0,
               @coltitle[@lcol + x - 1], CDK::HORIZONTAL, 0,
               @coltitle_len[@lcol + x - 1])
-          @cell[0][x].wrefresh
+          wrefresh(@cell[0][x])
         end
       end
     end
@@ -817,7 +817,7 @@ module CDK
               @rowtitle_pos[@trow + x - 1], 1,
               @rowtitle[@trow + x - 1], CDK::HORIZONTAL, 0,
               @rowtitle_len[@trow + x - 1])
-          @cell[x][0].wrefresh
+          wrefresh(@cell[x][0])
         end
       end
     end
@@ -855,7 +855,7 @@ module CDK
 
       self.drawTitle(@win)
 
-      @win.wrefresh
+      wrefresh
 
       self.drawEachColTitle
       self.drawEachRowTitle
@@ -1134,7 +1134,7 @@ module CDK
           Ncurses::ACS_URCORNER, Ncurses::ACS_LLCORNER,
           Ncurses::ACS_LRCORNER, Ncurses::ACS_HLINE,
           Ncurses::ACS_VLINE, Ncurses::A_BOLD)
-      self.CurMatrixCell.wrefresh
+      wrefresh(self.CurMatrixCell)
       self.highlightCell
     end
 

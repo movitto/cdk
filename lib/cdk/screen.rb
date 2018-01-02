@@ -189,13 +189,31 @@ module CDK
       self.refresh
     end
 
+    def self.refresh_output(v=true)
+      @refresh_output = v
+    end
+
+    def self.refresh_output?
+      !defined?(@refresh_output) || !!@refresh_output
+    end
+
+    def self.wrefresh(w)
+      if refresh_output?
+        w.wrefresh
+
+      else
+        w.noutrefresh
+
+      end
+    end
+
     # Refresh one CDK window.
     # FIXME(original): this should be rewritten to use the panel library, so
     # it would not be necessary to touch the window to ensure that it covers
     # other windows.
-    def SCREEN.refreshCDKWindow(win)
+    def self.refreshCDKWindow(win)
       win.touchwin
-      win.wrefresh
+      SCREEN.wrefresh(win)
     end
 
     # This refreshes all the objects in the screen.
@@ -237,6 +255,12 @@ module CDK
       end
     end
 
+    def noutrefresh
+      SCREEN.refresh_output(false)
+      refresh
+      SCREEN.refresh_output(true)
+    end
+
     # This clears all the objects in the screen
     def erase
       # We just call the object erase function
@@ -248,7 +272,7 @@ module CDK
       end
 
       # Refresh the screen.
-      @window.wrefresh
+      SCREEN.wrefresh(@window)
     end
 
     # Destroy all the objects on a screen

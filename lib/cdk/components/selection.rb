@@ -147,7 +147,7 @@ module CDK
       xpos = self.SCREEN_XPOS(0) + scrollbar_adj
 
       @input_window.wmove(ypos, xpos)
-      @input_window.wrefresh
+      wrefresh(@input_window)
     end
 
     # This actually manages the selection widget

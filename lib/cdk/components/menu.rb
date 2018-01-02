@@ -185,7 +185,7 @@ module CDK
           # Draw the new sub-title.
           self.selectItem(@current_subtitle, 0)
 
-          @pull_win[@current_title].wrefresh
+          wrefresh(@pull_win[@current_title])
         end
 
         @input_window = @title_win[@current_title]
@@ -308,13 +308,13 @@ module CDK
       end
 
       self.selectItem(@current_subtitle, x0)
-      @pull_win[@current_title].wrefresh
+      wrefresh(@pull_win[@current_title])
 
       # Highlight the title.
       Draw.writeChtypeAttrib(@title_win[@current_title], 0, 0,
           @title[@current_title], @title_attr, CDK::HORIZONTAL,
           0, @title_len[@current_title])
-      @title_win[@current_title].wrefresh
+      wrefresh(@title_win[@current_title])
     end
 
     # Erase a menu item subwindow
@@ -323,7 +323,7 @@ module CDK
 
       # Redraw the sub-menu title.
       self.drawTitle(@current_title)
-      @title_win[@current_title].wrefresh
+      wrefresh(@title_win[@current_title])
     end
 
     # Draw the menu.
@@ -331,15 +331,7 @@ module CDK
       # Draw in the menu titles.
       (0...@menu_items).each do |x|
         self.drawTitle(x)
-        @title_win[x].wrefresh
-      end
-    end
-
-    def noutrefresh
-      # Draw in the menu titles.
-      (0...@menu_items).each do |x|
-        self.drawTitle(x)
-        @title_win[x].noutrefresh
+        wrefresh(@title_win[x])
       end
     end
 
@@ -381,9 +373,9 @@ module CDK
       if self.validCDKObject
         (0...@menu_items).each do |x|
           @title_win[x].werase
-          @title_win[x].wrefresh
+          wrefresh(@title_win[x])
           @pull_win[x].werase
-          @pull_win[x].wrefresh
+          wrefresh(@pull_win[x])
         end
       end
     end
@@ -428,7 +420,7 @@ module CDK
     def cleanUpMenu
       # Erase the sub-menu.
       self.eraseSubwin
-      @pull_win[@current_title].wrefresh
+      wrefresh(@pull_win[@current_title])
 
       # Refresh the screen.
       @screen.refresh

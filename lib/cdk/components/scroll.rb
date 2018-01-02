@@ -148,7 +148,7 @@ module CDK
       xpos = self.SCREEN_XPOS(0) + scrollbar_adj
 
       @input_window.wmove(ypos, xpos)
-      @input_window.wrefresh
+      wrefresh(@input_window)
     end
 
     # This actually does all the 'real' work of managing the scrolling list.
@@ -361,7 +361,7 @@ module CDK
       end
 
       # Refresh the window
-      @win.wrefresh
+      wrefresh
     end
 
     # This sets the background attribute of the widget.
@@ -601,12 +601,12 @@ module CDK
     
     def focus
       self.drawCurrent
-      @list_win.wrefresh
+      wrefresh(@list_win)
     end
 
     def unfocus
       self.drawCurrent
-      @list_win.wrefresh
+      wrefresh(@list_win)
     end
 
     def AvailableWidth

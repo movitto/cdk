@@ -377,7 +377,7 @@ module CDK
       end
 
       # Refresh the window
-      @win.wrefresh
+      wrefresh
     end
 
     # Destroy the widget.

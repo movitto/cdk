@@ -637,7 +637,7 @@ module CDK
       # Box it if it was asked for.
       if box
         Draw.drawObjBox(@win, self)
-        @win.wrefresh
+        wrefresh
       end
 
       # Draw the info in the viewer.
@@ -668,7 +668,7 @@ module CDK
       end
 
       # Refresh the window.
-      @win.wrefresh
+      wrefresh
     end
 
     # This sets the background attribute of the widget.
@@ -765,7 +765,7 @@ module CDK
       # Box it if we have to.
       if @box
         Draw.drawObjBox(@win, self)
-        @win.wrefresh
+        wrefresh
       end
 
       # Draw the separation line.

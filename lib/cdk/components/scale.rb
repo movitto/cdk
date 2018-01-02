@@ -403,9 +403,9 @@ module CDK
       unless @label_win.nil?
         Draw.writeChtype(@label_win, 0, 0, @label, CDK::HORIZONTAL,
             0, @label_len)
-        @label_win.wrefresh
+        wrefresh(@label_win)
       end
-      @win.wrefresh
+      wrefresh
 
       # Draw the field window.
       self.drawField
@@ -422,7 +422,7 @@ module CDK
           CDK::HORIZONTAL, 0, temp.size)
 
       self.moveToEditPosition(@field_edit)
-      @field_win.wrefresh
+      wrefresh(@field_win)
     end
 
     # This sets the background attribute of teh widget.

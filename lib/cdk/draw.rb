@@ -42,7 +42,7 @@ module CDK
       window.mvwaddch(tly, brx, Ncurses::ACS_URCORNER | attr)
       window.mvwaddch(bry, tlx, Ncurses::ACS_LLCORNER | attr)
       window.mvwaddch(bry, brx, Ncurses::ACS_LRCORNER | attr)
-      window.wrefresh
+      SCREEN.wrefresh(window)
     end
 
     # This draws a box with attributes and lets the user define each
@@ -86,7 +86,7 @@ module CDK
         count += 1
       end
       if count != 0
-        win.wrefresh
+        SCREEN.wrefresh(win)
       end
     end
 
@@ -162,7 +162,7 @@ module CDK
         shadow_win.mvwaddch(0, x_hi, Ncurses::ACS_URCORNER | Ncurses::A_DIM)
         shadow_win.mvwaddch(y_hi, 0, Ncurses::ACS_LLCORNER | Ncurses::A_DIM)
         shadow_win.mvwaddch(y_hi, x_hi, Ncurses::ACS_LRCORNER | Ncurses::A_DIM)
-        shadow_win.wrefresh
+        SCREEN.wrefresh(shadow_win)
       end
     end
 
