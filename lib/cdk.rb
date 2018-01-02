@@ -1,6 +1,7 @@
 # cdk.rb
 
-# Copyright (c) 2013, Chris Sauro
+# Copyright (c) 2017, Mo Morsi <mo@morsi.org>
+#               2013, Chris Sauro
 # All rights reserved.
 # 
 # Redistribution and use in source and binary forms, with or without

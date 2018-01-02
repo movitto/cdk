@@ -36,7 +36,7 @@ module CDK
   # If the dimension is a negative value, the dimension will be the full
   # height/width of the parent window - the value of the dimension. Otherwise,
   # the dimension will be the given value.
-  def CDK.setWidgetDimension (parent_dim, proposed_dim, adjustment)
+  def self.setWidgetDimension (parent_dim, proposed_dim, adjustment)
     # If the user passed in FULL, return the parents size
     if proposed_dim == FULL or proposed_dim == 0
       parent_dim

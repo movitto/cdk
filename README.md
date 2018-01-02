@@ -1,16 +1,22 @@
-tawny-cdk
-========
+cdk
+===
 
-A Ruby version of Thomas Dickey version of the curses development kit.
+A Ruby version of Thomas Dickey version of the curses development kit providing
+many easy-to-use [TUI](https://en.wikipedia.org/wiki/Text-based_user_interface)
+widgets.
 
-Why Tawny?  Because this is better than just a ruby port.  Or, rather, it
-will be.  At the moment it's pretty much just a Ruby port but the plan is
-a package that is easier to use and extend, with extra extensions to prove
-it.
+Originally based on the [tawny-cdk](https://github.com/masterzora/tawny-cdk)
+library, this was forked and 'gemified' due to original project inactivity.
 
-Currently requires ncurses-ruby (http://ncurses-ruby.berlios.de/).
+Simply install with
 
-Currently implemented widgets:
+```
+  $ gem install cdk
+```
+
+Currently requires ncursesw (previously ncurses-ruby, check your dependencies!)
+
+Implemented widgets:
  * Alphalist
  * Button
  * Buttonbox
@@ -29,10 +35,11 @@ Currently implemented widgets:
  * Radio List
  * Scale
  * Scrolling List
- * Scrolling Window 
+ * Scrolling Window
  * Selection List
  * Slider
  * Template
  * Viewer
+ * More Coming Soon!
 
 Thomas Dickey's C project page: http://invisible-island.net/cdk/

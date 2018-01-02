@@ -1,8 +1,8 @@
-Additional modifications done by Mo Morsi 2017 (mo@morsi.org)
-
+Additional modifications:
+Copyright (C) 2017, Mo Morsi <mo@morsi.org>
 Keeping license as-is (BSD-3-clause)
 
-----
+-------------------------------------------------------------------------------
 Ruby port copyright Chris Sauro 2013
 
 Like Thomas, I am keeping this under a BSD license but I am changing to the
