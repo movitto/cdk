@@ -41,7 +41,7 @@ module CDK
     ###
 
     def timeout(v)
-      @win.timeout(v) if @win
+      @input_window.timeout(v) if @input_window
     end
 
     ###
