@@ -33,9 +33,6 @@ Mike Glover's CDK it is essentially usable, but there's still a lot to do:
      of the file handling, this means implementing intelligent rescues.  In
      other cases this means dealing more robustly with sensible but unexpected
      parameter types.
- * Package it all up
-   - Tawny CDK won't see a major version release until I work on packaging it
-     all up.
  * Compatiblity version
    - Right now I've significantly renamed and restructured a lot of things to
      better facilitate development but have still attempted to remain somewhat

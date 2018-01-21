@@ -92,7 +92,7 @@ module CDK
       else
         # Inject each character one at a time.
         actions.each do |x|
-          ret = self.inject(action)
+          ret = self.inject(x)
           if @exit_type == :EARLY_EXIT
             return ret
           end
