@@ -505,7 +505,7 @@ module CDK
     end
 
     # This sets the character to use when a hidden type is used.
-    def setHiddenChar(hidden_characer)
+    def setHiddenChar(hidden_character)
       @hidden = hidden_character
     end
 
