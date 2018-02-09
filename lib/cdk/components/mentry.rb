@@ -230,7 +230,7 @@ module CDK
       cursor_pos = self.getCursorPos
       pp_return = 1
       ret = -1
-      complete = false
+      @complete = false
 
       # Set the exit type.
       self.setExitType(0)
@@ -249,7 +249,7 @@ module CDK
       if pp_return != 0
         # Check for a key binding...
         if self.checkBind(:MENTRY, input)
-          complete = true
+          @complete = true
         else
           moved = false
           redraw = false
@@ -382,14 +382,14 @@ module CDK
             else
               self.setExitType(input)
               ret = @info
-              complete = true
+              @complete = true
             end
           when Ncurses::ERR
             self.setExitType(input)
-            complete = true
+            @complete = true
           when CDK::KEY_ESC
             self.setExitType(input)
-            complete = true
+            @complete = true
           when CDK::REFRESH
             @screen.erase
             @screen.refresh
@@ -410,12 +410,12 @@ module CDK
         end
 
         # Should we do a post-process?
-        if !complete && !(@post_process_func.nil?)
+        if !@complete && !(@post_process_func.nil?)
           @post_process_func.call(:MENTRY, self, @post_process_data, input)
         end
       end
 
-      if !complete
+      if !@complete
         self.setExitType(0)
       end
 

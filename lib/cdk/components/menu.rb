@@ -214,7 +214,7 @@ module CDK
     def inject(input)
       pp_return = 1
       ret = -1
-      complete = false
+      @complete = false
 
       # Set the exit type.
       self.setExitType(0)
@@ -231,7 +231,7 @@ module CDK
       if pp_return != 0
         # Check for key bindings.
         if self.checkBind(:MENU, input)
-          complete = true
+          @complete = true
         else
           case input
           when Ncurses::KEY_LEFT
@@ -247,16 +247,16 @@ module CDK
             self.setExitType(input)
             @last_selection = @current_title * 100 + @current_subtitle
             ret = @last_selection
-            complete = true
+            @complete = true
           when CDK::KEY_ESC
             self.cleanUpMenu
             self.setExitType(input)
             @last_selection = -1
             ret = @last_selection
-            complete = true
+            @complete = true
           when Ncurses::ERR
             self.setExitType(input)
-            complete = true
+            @complete = true
           when CDK::REFRESH
             self.erase
             self.refresh
@@ -264,12 +264,12 @@ module CDK
         end
 
         # Should we call a post-process?
-        if !complete && !(@post_process_func.nil?)
+        if !@complete && !(@post_process_func.nil?)
           @post_process_func.call(:MENU, self, @post_process_data, input)
         end
       end
 
-      if !complete
+      if !@complete
         self.setExitType(0)
       end
 

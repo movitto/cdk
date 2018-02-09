@@ -222,7 +222,7 @@ module CDK
     # This injects a character into the widget.
     def inject(input)
       pp_return = 1
-      complete = false
+      @complete = false
       ret = -1
 
       self.setExitType(0)
@@ -240,7 +240,7 @@ module CDK
       if pp_return != 0
         # Check a predefined binding
         if self.checkBind(:TEMPLATE, input)
-          complete = true
+          @complete = true
         else
           case input
           when CDK::ERASE
@@ -280,14 +280,14 @@ module CDK
             else
               self.setExitType(input)
               ret = @info
-              complete = true
+              @complete = true
             end
           when CDK::KEY_ESC
             self.setExitType(input)
-            complete = true
+            @complete = true
           when Ncurses::ERR
             self.setExitType(input)
-            complete = true
+            @complete = true
           when CDK::REFRESH
             @screen.erase
             @screen.refresh
@@ -297,12 +297,12 @@ module CDK
         end
 
         # Should we call a post-process?
-        if !complete && !(@post_process_func.nil?)
+        if !@complete && !(@post_process_func.nil?)
           @post_process_func.call(:TEMPLATE, self, @post_process_data, input)
         end
       end
 
-      if !complete
+      if !@complete
         self.setExitType(0)
       end
 

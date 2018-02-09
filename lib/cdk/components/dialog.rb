@@ -152,7 +152,7 @@ module CDK
       last_button = @button_count - 1
       pp_return = 1
       ret = -1
-      complete = false
+      @complete = false
 
       # Set the exit type.
       self.setExitType(0)
@@ -167,7 +167,7 @@ module CDK
       if pp_return != 0
         # Check for a key binding.
         if self.checkBind(:DIALOG, input)
-          complete = true
+          @complete = true
         else
           case input
           when Ncurses::KEY_LEFT, Ncurses::KEY_BTAB, Ncurses::KEY_BACKSPACE
@@ -189,24 +189,24 @@ module CDK
             @screen.refresh
           when CDK::KEY_ESC
             self.setExitType(input)
-            complete = true
+            @complete = true
           when Ncurses::ERR
             self.setExitType(input)
           when Ncurses::KEY_ENTER, CDK::KEY_RETURN
             self.setExitType(input)
             ret = @current_button
-            complete = true
+            @complete = true
           end
         end
 
         # Should we call a post_process?
-        if !complete && !(@post_process_func.nil?)
+        if !@complete && !(@post_process_func.nil?)
           @post_process_func.call(:DIALOG, self,
               @post_process_data, input)
         end
       end
 
-      unless complete
+      unless @complete
         self.drawButtons
         wrefresh(@win)
         self.setExitType(0)

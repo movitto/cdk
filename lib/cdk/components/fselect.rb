@@ -489,7 +489,7 @@ module CDK
     # This injects a single character into the file selector.
     def inject(input)
       ret = -1
-      complete = false
+      @complete = false
 
       # Let the user play.
       filename = @entry_field.inject(input)
@@ -515,7 +515,7 @@ module CDK
 
         # Return the complete pathname.
         ret = @pathname
-        complete = true
+        @complete = true
       else
         # Set the file selector information.
         self.set(filename, @field_attribute, @filler_character, @highlight,
@@ -526,7 +526,7 @@ module CDK
         self.drawMyScroller
       end
 
-      if !complete
+      if !@complete
         self.setExitType(0)
       end
 

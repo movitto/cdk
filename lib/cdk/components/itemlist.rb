@@ -145,7 +145,7 @@ module CDK
     def inject(input)
       pp_return = 1
       ret = -1
-      complete = false
+      @complete = false
 
       # Set the exit type.
       self.setExitType(0)
@@ -163,7 +163,7 @@ module CDK
       if pp_return != 0
         # Check a predefined binding.
         if self.checkBind(:ITEMLIST, input)
-          complete = true
+          @complete = true
         else
           case input
           when Ncurses::KEY_UP, Ncurses::KEY_RIGHT, ' '.ord, '+'.ord, 'n'.ord
@@ -186,14 +186,14 @@ module CDK
             @current_item = @list_size - 1
           when CDK::KEY_ESC
             self.setExitType(input)
-            complete = true
+            @complete = true
           when Ncurses::ERR
             self.setExitType(input)
-            complete = true
+            @complete = true
           when CDK::KEY_TAB, CDK::KEY_RETURN, Ncurses::KEY_ENTER
             self.setExitType(input)
             ret = @current_item
-            complete = true
+            @complete = true
           when CDK::REFRESH
             @screen.erase
             @screen.refresh
@@ -203,12 +203,12 @@ module CDK
         end
 
         # Should we call a post-process?
-        if !complete && !(@post_process_func.nil?)
+        if !@complete && !(@post_process_func.nil?)
           @post_process_func.call(:ITEMLIST, self, @post_process_data, input)
         end
       end
 
-      if !complete
+      if !@complete
         self.drawField(true)
         self.setExitType(0)
       end

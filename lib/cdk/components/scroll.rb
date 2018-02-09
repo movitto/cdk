@@ -186,7 +186,7 @@ module CDK
     def inject(input)
       pp_return = 1
       ret = -1
-      complete = false
+      @complete = false
 
       # Set the exit type for the widget.
       self.setExitType(0)
@@ -205,7 +205,7 @@ module CDK
         # Check for a predefined key binding.
         if self.checkBind(:SCROLL, input) != false
           #self.checkEarlyExit
-          complete = true
+          @complete = true
         else
           case input
           when Ncurses::KEY_UP
@@ -230,26 +230,26 @@ module CDK
             @left_char = 0
           when CDK::KEY_ESC
             self.setExitType(input)
-            complete = true
+            @complete = true
           when Ncurses::ERR
             self.setExitType(input)
-            complete = true
+            @complete = true
           when CDK::REFRESH
             @screen.erase
             @screen.refresh
           when CDK::KEY_TAB, Ncurses::KEY_ENTER, CDK::KEY_RETURN
             self.setExitType(input)
             ret = @current_item
-            complete = true
+            @complete = true
           end
         end
 
-        if !complete && !(@post_process_func.nil?)
+        if !@complete && !(@post_process_func.nil?)
           @post_process_func.call(:SCROLL, self, @post_process_data, input)
         end
       end
 
-      if !complete
+      if !@complete
         self.drawList(@box)
         self.setExitType(0)
       end

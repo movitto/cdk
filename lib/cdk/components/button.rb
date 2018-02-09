@@ -315,28 +315,28 @@ module CDK
     # This injects a single character into the widget.
     def inject(input)
       ret = -1
-      complete = false
+      @complete = false
 
       self.setExitType(0)
 
       # Check a predefined binding.
       if self.checkBind(:BUTTON, input)
-        complete = true
+        @complete = true
       else
         case input
         when CDK::KEY_ESC
           self.setExitType(input)
-          complete = true
+          @complete = true
         when Ncurses::ERR
           self.setExitType(input)
-          complete = true
+          @complete = true
         when ' '.ord, CDK::KEY_RETURN, Ncurses::KEY_ENTER
           unless @callback.nil?
             @callback.call(self)
           end
           self.setExitType(Ncurses::KEY_ENTER)
           ret = 0
-          complete = true
+          @complete = true
         when CDK::REFRESH
           @screen.erase
           @screen.refresh
@@ -345,7 +345,7 @@ module CDK
         end
       end
 
-      unless complete
+      unless @complete
         self.setExitType(0)
       end
 

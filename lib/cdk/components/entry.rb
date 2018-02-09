@@ -198,7 +198,7 @@ module CDK
     def inject(input)
       pp_return = 1
       ret = 1
-      complete = false
+      @complete = false
 
       # Set the exit type
       self.setExitType(0)
@@ -215,7 +215,7 @@ module CDK
       if pp_return != 0
         # Check a predefined binding
         if self.checkBind(:ENTRY, input)
-          complete = true
+          @complete = true
         else
           curr_pos = @screen_col + @left_char
 
@@ -295,7 +295,7 @@ module CDK
             end
           when CDK::KEY_ESC
             self.setExitType(input)
-            complete = true
+            @complete = true
           when CDK::ERASE
             if @info.size != 0
               self.clean
@@ -326,13 +326,13 @@ module CDK
             if @info.size >= @min
               self.setExitType(input)
               ret = @info
-              complete = true
+              @complete = true
             else
               CDK.Beep
             end
           when Ncurses::ERR
             self.setExitType(input)
-            complete = true
+            @complete = true
           when CDK::REFRESH
             @screen.erase
             @screen.refresh
@@ -341,12 +341,12 @@ module CDK
           end
         end
 
-        if !complete && !(@post_process_func.nil?)
+        if !@complete && !(@post_process_func.nil?)
           @post_process_func.call(:ENTRY, self, @post_process_data, input)
         end
       end
 
-      unless complete
+      unless @complete
         self.setExitType(0)
       end
 

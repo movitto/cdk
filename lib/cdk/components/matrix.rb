@@ -317,7 +317,7 @@ module CDK
       charcount = @info[@row][@col].size
       pp_return = 1
       ret = -1
-      complete = false
+      @complete = false
 
       # Set the exit type.
       self.setExitType(0)
@@ -343,7 +343,7 @@ module CDK
       if pp_return != 0
         # Check the key bindings.
         if self.checkBind(:MATRIX, input)
-          complete = true
+          @complete = true
         else
           case input
           when CDK::TRANSPOSE
@@ -543,10 +543,10 @@ module CDK
             wrefresh(self.CurMatrixCell)
             self.setExitType(input)
             ret = 1
-            complete = true
+            @complete = true
           when Ncurses::ERR
             self.setExitType(input)
-            complete = true
+            @complete = true
           when CDK::KEY_ESC
             if !@box_cell
               Draw.attrbox(@cell[@oldcrow][@oldccol], ' '.ord, ' '.ord,
@@ -556,7 +556,7 @@ module CDK
             end
             wrefresh(self.CurMatrixCell)
             self.setExitType(input)
-            complete = true
+            @complete = true
           when CDK::REFRESH
             @screen.erase
             @screen.refresh
@@ -565,7 +565,7 @@ module CDK
           end
         end
 
-        if !complete
+        if !@complete
           # Did we change cells?
           if moved_cell
             # un-highlight the old box
@@ -603,7 +603,7 @@ module CDK
         end
       end
 
-      if !complete
+      if !@complete
         # Set the variables we need.
         @oldcrow = @crow
         @oldccol = @ccol
