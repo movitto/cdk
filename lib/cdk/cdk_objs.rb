@@ -31,6 +31,7 @@ module CDK
     def initialize
       CDK::ALL_OBJECTS << self
 
+      init_title
       init_borders
       init_focus
       init_bindings

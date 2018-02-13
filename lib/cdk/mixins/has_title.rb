@@ -1,5 +1,11 @@
 module CDK
   module HasTitle
+    attr_accessor :title_attrib
+
+    def init_title
+      @title_attrib = Ncurses::A_NORMAL
+    end
+
     # Set the widget's title.
     def setTitle (title, box_width)
       if !title.nil? 
@@ -39,9 +45,14 @@ module CDK
     # Draw the widget's title
     def drawTitle(win)
       (0...@title_lines).each do |x|
-        Draw.writeChtype(@win, @title_pos[x] + @border_size,
-            x + @border_size, @title[x], CDK::HORIZONTAL, 0,
-            @title_len[x])
+        Draw.writeChtypeAttrib(@win,
+            @title_pos[x] + @border_size,
+                        x + @border_size,
+                               @title[x],
+                            title_attrib,
+                         CDK::HORIZONTAL,
+                                       0,
+                           @title_len[x])
       end
     end
 
