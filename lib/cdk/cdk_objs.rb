@@ -10,6 +10,7 @@ require_relative './mixins/has_screen'
 require_relative './mixins/has_title'
 require_relative './mixins/window_input'
 require_relative './mixins/window_hooks'
+require_relative './mixins/common_controls'
 
 module CDK
   class CDKOBJS

@@ -2,6 +2,8 @@ require_relative 'scroller'
 
 module CDK
   class SCROLL < CDK::SCROLLER
+    include CommonControls
+
     attr_reader :item, :list_size, :current_item, :highlight
 
     def initialize (cdkscreen, xplace, yplace, splace, height, width, title,
@@ -238,9 +240,11 @@ module CDK
             @screen.erase
             @screen.refresh
           when CDK::KEY_TAB, Ncurses::KEY_ENTER, CDK::KEY_RETURN
-            self.setExitType(input)
-            ret = @current_item
-            @complete = true
+            if quit_on_enter?
+              self.setExitType(input)
+              ret = @current_item
+              @complete = true
+            end
           end
         end
 
