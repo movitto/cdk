@@ -117,7 +117,7 @@ module CDK
       @info = char2Chtype(info, info_len, info_pos)
       @info_len = info_len[0]
       @info_pos = justify_string(@box_width - 2 * @border_size,
-          info_pos[0])
+          @info_len, @info_pos)
 
       # Redraw the button widget.
       self.erase
@@ -194,7 +194,7 @@ module CDK
       # Adjust the window if we need to.
       xtmp = [xpos]
       ytmp = [ypos]
-      CDK.alignxy(@screen.window, xtmp, ytmp, @box_width, @box_height)
+      alignxy(@screen.window, xtmp, ytmp, @box_width, @box_height)
       xpos = xtmp[0]
       ypos = ytmp[0]
 
