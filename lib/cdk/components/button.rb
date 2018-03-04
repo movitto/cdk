@@ -2,6 +2,8 @@ require_relative '../cdk_objs'
 
 module CDK
   class BUTTON < CDK::CDKOBJS
+    include Formattable
+
     def initialize(cdkscreen, xplace, yplace, text, callback, box, shadow)
       super()
       parent_width = cdkscreen.window.getmaxx
@@ -16,9 +18,19 @@ module CDK
       # Translate the string to a chtype array.
       info_len = []
       info_pos = []
-      @info = char2Chtype(text, info_len, info_pos)
-      @info_len = info_len[0]
-      @info_pos = info_pos[0]
+
+      if skip_formatting?
+        @info = text
+        @info_len = @info.size
+        @info_pos = 0
+
+      else
+        @orig_text = text
+        @info = char2Chtype(text, info_len, info_pos)
+        @info_len = info_len[0]
+        @info_pos = info_pos[0]
+      end
+
       box_width = [box_width, @info_len].max + 2 * @border_size
 
       # Create the string alignments.
@@ -74,6 +86,16 @@ module CDK
       cdkscreen.register(:BUTTON, self)
     end
 
+    def skip_formatting=(b)
+      super
+
+      if skip_formatting?
+        @info = @orig_text
+        @info_len = @info.size
+        @info_pos = 0
+      end
+    end
+
     # This was added for the builder.
     def activate(actions)
       self.draw(@box)
@@ -114,10 +136,17 @@ module CDK
     def setMessage(info)
       info_len = []
       info_pos = []
-      @info = char2Chtype(info, info_len, info_pos)
-      @info_len = info_len[0]
-      @info_pos = justify_string(@box_width - 2 * @border_size,
+      if skip_formatting?
+        @info = info
+        @info_len = info.size
+        @info_pos = 0
+      else
+        @orig_text = info
+        @info = char2Chtype(info, info_len, info_pos)
+        @info_len = info_len[0]
+        @info_pos = justify_string(@box_width - 2 * @border_size,
           @info_len, @info_pos)
+      end
 
       # Redraw the button widget.
       self.erase
@@ -134,6 +163,12 @@ module CDK
     end
 
     def drawText
+      # XXX : so we can draw unicode
+      if skip_formatting?
+        @win.mvaddstr(@border_size, @border_size, @info)
+        return
+      end
+
       box_width = @box_width
 
       # Draw in the message.
